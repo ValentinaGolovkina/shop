@@ -19,12 +19,13 @@ exports.get = function(req, res,next) {
     else{
         var size = req.query.size;
         console.log("Считалось size:", size);
-        console.log("Текущий пользователь:", req.query.name);
+        console.log("Текущий пользователь:", req.query.userEmail);
+        console.log("Выбраный товар:", req.query.goodname);
         //console.log("w", req.query.w);
         if(size!=undefined) {
 
             res.status(200);
-            //res.end();
+            res.end();
         }
         else {
             res.status(401);

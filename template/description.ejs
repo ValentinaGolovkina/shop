@@ -36,5 +36,34 @@
     - goodname название товара
     - user текущий пользователь*/
    // var goodname = document.getElementById("name").value()
-    alert(document.getElementById("name").value())
+    //alert(document.getElementById("name").value())
+    $(document.forms['description']).on('submit', function () {
+        var form = $(this);
+
+        $('.error', form).html('');
+        $(":submit", form).button("loading");
+        //var g = document.getElementById("name");
+       // var params = 'name=' + document.getElementById("size").value;
+        document.getElementById("name").innerHTML
+        $.ajax({
+            url: "/description",
+            method: "GET",
+             data: form.serialize(),
+            //data:{'userEmail':'petya@gmail.com', 'goodname':'Пиджак River Island'},
+            complete: function () {
+                $(":submit", data).button("reset");
+            },
+            statusCode: {
+                200: function () {
+                    if (confirm("Товар добавлен в корзину. Перейти в корзину?")) {
+                        window.location.href = "/";
+                    }
+                },
+                401: function () {
+                    $('.error', form).html("Ошибка. Выберите размер");
+                }
+            }
+        });
+        return false;
+    });
 </script>
