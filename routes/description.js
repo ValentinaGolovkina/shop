@@ -34,7 +34,7 @@ exports.get = function(req, res,next) {
             console.log("корзина: ", cart);
 
 
-           /* Cart.addCart(userID, goodID, size, '1', function(err, cart) {
+            Cart.addCart(userID, goodID, size, '1', function(err, cart) {
                 if (err) {
                     console.log("ошибка добавления корзины");
                     //res.status(401);
@@ -44,7 +44,7 @@ exports.get = function(req, res,next) {
                     console.log("успешная add");
                     //res.end();
                 }
-            });*/
+            });
 
             /*user.save(function(err) {
                 if (err) console.log("ошибка ");

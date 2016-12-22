@@ -7,7 +7,7 @@
         <% if (user) { %>
             <li>
                 <a href="" onclick="$('<form method=POST action=/logout></form>').submit();return false">Выйти</a>
-                <li><a href="/cart">Корзина</a></li>
+                <li><a href="/cart?userID=<%-user.get('_id')%>">Корзина</a></li>
             </li>
         <% } else { %>
         <li><a href="/login">Войти</a></li>

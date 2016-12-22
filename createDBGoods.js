@@ -8,8 +8,8 @@ async.series([
     createGoods,
     requireModelsUser,
     createUsers,
-    requireModelsCart,
-    createCart
+    requireModelsCart/*,
+    createCart*/
 ], function(err) {
     console.log(arguments);
     mongoose.disconnect();
