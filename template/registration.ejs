@@ -1,0 +1,45 @@
+<% layout('./layout/page') %>
+<% block('title', "Valensiya - Регистрация"); %>
+<div class="container registration">
+    <p>Введите данные:</p>
+    <form class="form-horizontal" method="POST" name="registration-form">
+        <div class="form-group">
+            <label for="input-email" class="col-lg-5 control-label">Электронная почта</label>
+            <div class="col-lg-4">
+                <input name="email" type="email" class="form-control" id="input-email" placeholder="Email">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-username" class="col-lg-5 control-label">Имя</label>
+            <div class="col-lg-4">
+                <input name="username" type="text" class="form-control" id="input-username" placeholder="Имя">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-surname" class="col-lg-5 control-label">Фамилия</label>
+            <div class="col-lg-4">
+                <input name="surname" type="text" class="form-control" id="input-surname" placeholder="Фамилия">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-password" class="col-lg-5 control-label">Пароль</label>
+            <div class="col-lg-4">
+                <input name="password" type="password" class="form-control" id="input-password" placeholder="Пароль">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="input-password2" class="col-lg-5 control-label">Повторите пароль</label>
+            <div class="col-lg-4">
+                <input name="password2" type="password" class="form-control" id="input-password2" placeholder="Повторите пароль">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-lg-offset-5 col-lg-5">
+                <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Зарегистрироваться</button>
+                <span class="help-block error"></span>
+            </div>
+        </div>
+    </form>
+</div>
+<script src="./javascripts/valid.js"></script>
+<script src="./javascripts/registration.js"></script>

@@ -1,0 +1,7 @@
+<div class="row ">
+    <% var i = 0; %>
+    <% while ((count>0)&&(i<4)) {%>
+        <%- partial('miniature',{goods:goods, count:count, i:goods.length-count})%>
+        <% count--; %>
+        <%  i++;}%>
+</div>

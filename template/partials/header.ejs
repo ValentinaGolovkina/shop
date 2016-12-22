@@ -1,0 +1,20 @@
+<div class="navbar navbar-fixed-top vertical">
+    <a class="brand" href="/">
+        <img src="./images/logo.JPG" alt="Valensiya">
+    </a>
+    <span>Будь шикарным каждый день!</span>
+    <ul class="nav nav-pills pull-right ">
+        <% if (user) { %>
+            <li>
+                <a href="" onclick="$('<form method=POST action=/logout></form>').submit();return false">Выйти</a>
+                <li><a href="/cart">Корзина</a></li>
+            </li>
+        <% } else { %>
+        <li><a href="/login">Войти</a></li>
+        <li><a href="/registration">Регистрация</a></li>
+        <% } %>
+    </ul>
+    <% if (user) { %>
+    <span class="pull-right welcome">Добро пожаловать, <%=user.get('username')%> :)</span>
+    <% } %>
+</div>

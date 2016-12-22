@@ -1,0 +1,48 @@
+<% layout('./layout/page') -%>
+<% block('title', 'Valensiya - Мужская одежда'); %>
+<div class="product">
+    <div class="container-fluid text-center">
+        <div class="row ">
+            <div class="col2 col-xs-4 col-sm-3 col-md-2">
+                <h3>Мужская одежда</h3>
+                <div class="btn-group btn-group-vertical">
+                    <a href="men"> <button class="btn categors" >Все</button> </a>
+                    <a href="men?category=Пиджаки"> <button class="btn categors">Пиджаки</button> </a>
+                    <a href="men?category=Рубашки"> <button class="btn categors">Рубашки</button> </a>
+                    <a href="men?category=Брюки"> <button class="btn categors">Брюки</button> </a>
+                    <a href="men?category=Шорты"> <button class="btn categors">Шорты</button> </a>
+                    <a href="men?category=Джинсы"> <button class="btn categors">Джинсы</button> </a>
+                    <a href="men?category=Толстовки"> <button class="btn categors">Толстовки</button> </a>
+                    <a href="men?category=Футболки"> <button class="btn categors">Футболки</button> </a>
+                    <a href="men?category=Майки"> <button class="btn categors">Майки</button> </a>
+                </div>
+            </div>
+            <div class="col-xs-8 col-sm-9 col-md-10">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <!--span>Фильтры:</span-->
+                        <span>Сортировать по:</span>
+                        <div class="btn-group">
+                            <form>
+                                <select id="categories" class="selectpicker">
+                                    <option value="news">Новинки</option>
+                                    <option value="costUp">Цена по возрастанию</option>
+                                    <option value="costDown">Цена по убыванию</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="thumbnails list-unstyled">
+                    <% if (count==0) {%>
+                    <h4>Товаров не найдено</h4>
+                    <%} else while (count>0) {%>
+                    <%-partial('./partials/rowMiniature',{goods:goods, count:count})%>
+                    <% count = count-4; }%>
+                </ul>
+                <!-- <%-partial('./partials/pagination',{count:count})%>-->
+            </div>
+        </div>
+    </div>
+</div>

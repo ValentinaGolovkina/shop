@@ -1,0 +1,33 @@
+<% layout('./layout/page') -%>
+<% block('title', 'Valensiya - Корзина'); %>
+<div class="product">
+    <div class="container-fluid text-center cart">
+        <h3>Ваша корзина(<%- count%>товара(ов))</h3>
+        <div>
+            <ul class="thumbnails list-unstyled">
+                <% if (count==0) {%>
+                <h4>Товаров в корзине нет</h4>
+                <%} else while (count>0) {%>
+                <%-partial('./partials/goodCart',{good:goods[goods.length-count], count:count})%>
+                <% count = count-1; }%>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-3">
+                <span>Итого:</span>
+                <%var sum=0;%>
+                <%var i = 0;%>
+                <%while (i<goods.length){%>
+                <%sum=sum+goods[i].get('price'); i++;}%>
+                <%=sum%>
+            </div>
+            <div class="col-md-3">
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Заказать</button>
+                    <span class="help-block error"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

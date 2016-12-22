@@ -1,0 +1,24 @@
+<li>
+    <div class="row thumbnail">
+        <div class="col-md-3">
+            <a href="description?goodname=<%=good.get('goodname')%>" >
+                <img src="<%-good.get('img')%>">
+            </a>
+        </div>
+        <div class="col-md-3">
+            <p id="name"><%=good.get('goodname')%></p>
+            <p id="categor">Категория: <%=good.get('category')%></p>
+            <p id="size">Размер: <%=good.get('size')[0]%></p>
+            <!--<p id="count">Количество: <%=good.get('count')%> шт.</p>-->
+        </div>
+        <div class="col-md-3">
+            <p id="cost">Цена: <%=good.get('price')%> p.</p>
+        </div>
+        <div class="col-md-3">
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Удалить</button>
+                <span class="help-block error"></span>
+            </div>
+        </div>
+    </div>
+</li>

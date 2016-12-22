@@ -1,0 +1,40 @@
+<% layout('./layout/page') -%>
+<% block('title', 'Valensiya - Описание товара'); %>
+<div class="row ">
+    <div class="col-md-5">
+        <img  class="img-good" src="<%-good.get('img')%>">
+    </div>
+    <div class="col-md-6 description">
+        <div>
+            <h2 id="name"><%=good.get('goodname')%></h2>
+            <p id="categor">Категория: <%=good.get('category')%></p>
+            <p id="cost">Цена: <%=good.get('price')%> p.</p>
+            <p id="color">Цвет: <%=good.get('color')%></p>
+            <p id="description">Описание: <%=good.get('description')%></p>
+            <form class="form-inline" name="description">
+                <label id="size">Размер: </label>
+                <% var size = good.get('size')%>
+                <% var i = 0%>
+                <% while (i<size.length){%>
+            <label class="radio">
+                <input type="radio" name="size" value="<%=size[i]%>" >
+                <%=size[i]%>
+            </label>
+                <%i++;}%>
+                <div class="form-group">
+                        <button id="button" type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Добавить в корзину</button>
+                        <span class="help-block error"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    /*отправить get запрос на сервер
+    - size выбранный из списка
+    - goodname название товара
+    - user текущий пользователь*/
+   // var goodname = document.getElementById("name").value()
+    alert(document.getElementById("name").value())
+</script>

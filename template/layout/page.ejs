@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%=blocks.title%></title>
+
+    <link href="./vendor/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./stylesheets/style.css" rel="stylesheet">
+    <link  href="./favicon.ico" type="image/x-icon" rel="shortcut icon" >
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="./vendor/jquery/dist/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="./vendor/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<header>
+    <%-partial('../partials/header')%>
+</header>
+<section>
+    <%-body -%>
+    <%-partial('../partials/btnTop')%>
+</section>
+<footer class="footer">
+    <%-partial('../partials/footer')%>
+</footer>
+
+</body>
+</html>
