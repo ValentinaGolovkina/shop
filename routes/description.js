@@ -1,5 +1,8 @@
 var Good = require('model/good').Good;
-//var Cart = require('model/good').Cart;
+//var User = require('model/user').User;
+var Cart = require('model/cart').Cart;
+//var mongoose = require('libs/mongoose');
+
 exports.get = function(req, res,next) {
     console.log("GET ");
     var goodname = req.query.goodname;
@@ -20,21 +23,67 @@ exports.get = function(req, res,next) {
     else{
         var size = req.query.size;
         console.log("Считалось size:", size);
-        console.log("Выбраный товар:", req.query.name);
+        var goodID =req.query.goodID;
+        console.log("Выбраный товар:", goodID);
         var userID = req.query.userID;
         console.log("Пользователь:", userID);
         if(userID!=undefined) {
-           /*Cart.findOne({userID: userID}, function (err, cart) {
+            //var cart = {userID: userID, goodID: goodID, size: size, count:'1'};
+
+            var cart = new Cart({userID: userID,goodID: goodID,size: size, count: '1'});
+            console.log("корзина: ", cart);
+
+
+           /* Cart.addCart(userID, goodID, size, '1', function(err, cart) {
                 if (err) {
-                    console.log("ошибка поиска корзины для пользователя: ", userID);
+                    console.log("ошибка добавления корзины");
+                    //res.status(401);
+                    //res.end();
+                }
+                else {
+                    console.log("успешная add");
+                    //res.end();
+                }
+            });*/
+
+            /*user.save(function(err) {
+                if (err) console.log("ошибка ");
+                else console.log("успешно добавлено");
+            });*/
+
+            /*Cart.findOne({userID: '585bca9869b0f01478ae5fde'}, function (err, cart) {
+             if (err) {
+             console.log("ошибка поиска  корзины: ");
+             next(err);
+             }
+             else {
+             console.log("Считалась корзина:");
+             console.log(cart);
+             }
+             });*/
+
+            /*Good.findOne({_id: goodID}, function (err, good) {
+             if (err) {
+             console.log("ошибка поиска  товара: ", goodID);
+             next(err);
+             }
+             else {
+             console.log("Считался товар:");
+             console.log(good);
+             }
+             });*/
+
+            /*User.findOne({_id: userId}, function (err, user) {
+                if (err) {
+                    console.log("ошибка поиска  пользователя: ", userId);
                     next(err);
                 }
                 else {
-                    console.log("Считалось descriptionOK:");
-                    console.log(cart);
-                    //res.render('description', {good: good})
+                    console.log("Считался user:");
+                    console.log(user);
                 }
             });*/
+
             if(size!=undefined) {
 
                 res.status(200);

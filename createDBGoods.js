@@ -4,10 +4,12 @@ var async = require('async');
 async.series([
     open,
     dropDatabase,
-    requireModels1,
+    requireModelsGood,
     createGoods,
-    requireModels2,
-    createUsers
+    requireModelsUser,
+    createUsers,
+    requireModelsCart,
+    createCart
 ], function(err) {
     console.log(arguments);
     mongoose.disconnect();
@@ -23,15 +25,24 @@ function dropDatabase(callback) {
     db.dropDatabase(callback);
 }
 
-function requireModels1(callback) {
+function requireModelsGood(callback) {
     require('model/good');
 
     async.each(Object.keys(mongoose.models), function(modelName, callback) {
         mongoose.models[modelName].ensureIndexes(callback);
     }, callback);
 }
-function requireModels2(callback) {
+function requireModelsUser(callback) {
     require('model/user');
+
+    async.each(Object.keys(mongoose.models), function(modelName, callback) {
+        mongoose.models[modelName].ensureIndexes(callback);
+    }, callback);
+}
+
+
+function requireModelsCart(callback) {
+    require('model/cart');
 
     async.each(Object.keys(mongoose.models), function(modelName, callback) {
         mongoose.models[modelName].ensureIndexes(callback);
@@ -134,5 +145,18 @@ function createUsers(callback) {
     async.each(users, function(userData, callback) {
         var user = new mongoose.models.User(userData);
         user.save(callback);
+    }, callback);
+}
+
+
+function createCart(callback) {
+
+    var carts = [
+        {userID: '585bca9869b0f01478ae5fde', goodID: '585bca9769b0f01478ae5fb7', size: '52', count: '1'}
+    ];
+
+    async.each(carts, function(userData, callback) {
+        var cart = new mongoose.models.Cart(userData);
+        cart.save(callback);
     }, callback);
 }
