@@ -12,6 +12,7 @@
             <p id="color">Цвет: <%=good.get('color')%></p>
             <p id="description">Описание: <%=good.get('description')%></p>
             <form class="form-inline" name="description">
+
                 <label id="size">Размер: </label>
                 <% var size = good.get('size')%>
                 <% var i = 0%>
@@ -21,6 +22,10 @@
                 <%=size[i]%>
             </label>
                 <%i++;}%>
+                <input type="hidden" name="name" value=<%=good.get('_id')%>>
+                <%if(user){%>
+                <input type="hidden" name="userID" value=<%=user.get('_id')%>>
+                <%}%>
                 <div class="form-group">
                         <button id="button" type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Добавить в корзину</button>
                         <span class="help-block error"></span>
@@ -39,17 +44,11 @@
     //alert(document.getElementById("name").value())
     $(document.forms['description']).on('submit', function () {
         var form = $(this);
-
-        $('.error', form).html('');
-        $(":submit", form).button("loading");
-        //var g = document.getElementById("name");
-       // var params = 'name=' + document.getElementById("size").value;
         document.getElementById("name").innerHTML
         $.ajax({
             url: "/description",
             method: "GET",
-             data: form.serialize(),
-            //data:{'userEmail':'petya@gmail.com', 'goodname':'Пиджак River Island'},
+            data: form.serialize(),
             complete: function () {
                 $(":submit", data).button("reset");
             },
@@ -59,8 +58,11 @@
                         window.location.href = "/";
                     }
                 },
+                402: function () {
+                    $('.error', form).html("Вы не зарегистрированы");
+                },
                 401: function () {
-                    $('.error', form).html("Ошибка. Выберите размер");
+                    $('.error', form).html("Выберите размер");
                 }
             }
         });
