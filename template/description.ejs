@@ -4,6 +4,7 @@
     <div class="col-md-5">
         <img  class="img-good" src="<%-good.get('img')%>">
     </div>
+
     <div class="col-md-6 description">
         <div>
             <h2 id="name"><%=good.get('goodname')%></h2>
@@ -17,34 +18,28 @@
                 <% var size = good.get('size')%>
                 <% var i = 0%>
                 <% while (i<size.length){%>
-            <label class="radio">
-                <input type="radio" name="size" value="<%=size[i]%>" >
-                <%=size[i]%>
-            </label>
+                <label class="radio">
+                    <input type="radio" name="size" value="<%=size[i]%>" >
+                    <%=size[i]%>
+                </label>
                 <%i++;}%>
                 <input type="hidden" name="goodID" value=<%=good.get('_id')%>>
                 <%if(user){%>
                 <input type="hidden" name="userID" value=<%=user.get('_id')%>>
                 <%}%>
                 <div class="form-group">
-                        <button id="button" type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Добавить в корзину</button>
-                        <span class="help-block error"></span>
+                    <button id="button" type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Добавить в корзину</button>
+                    <span class="help-block error"></span>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
+<%if(user){%>
 <script>
-    /*отправить get запрос на сервер
-    - size выбранный из списка
-    - goodname название товара
-    - user текущий пользователь*/
-   // var goodname = document.getElementById("name").value()
-    //alert(document.getElementById("name").value())
     $(document.forms['description']).on('submit', function () {
         var form = $(this);
-        document.getElementById("name").innerHTML
         $.ajax({
             url: "/description",
             method: "GET",
@@ -53,19 +48,51 @@
                 $(":submit", data).button("reset");
             },
             statusCode: {
-                200: function () {
-                    if (confirm("Товар добавлен в корзину. Перейти в корзину?")) {
-                        window.location.href = "/";
-                    }
-                },
                 402: function () {
                     $('.error', form).html("Вы не зарегистрированы");
                 },
+                200: function () {
+                    if (confirm("Товар добавлен в корзину. Перейти в корзину?")) {
+                        window.location.href = "/cart?userID=<%-user.get('_id')%>";
+                        }
+                },
                 401: function () {
                     $('.error', form).html("Выберите размер");
+                },
+                403: function () {
+                    $('.error', form).html("Ошибка добавления корзины");
                 }
             }
         });
         return false;
     });
 </script>
+<%} else{%>
+<script>
+    $(document.forms['description']).on('submit', function () {
+        var form = $(this);
+        $.ajax({
+            url: "/description",
+            method: "GET",
+            data: form.serialize(),
+            complete: function () {
+                $(":submit", data).button("reset");
+            },
+            statusCode: {
+                402: function () {
+                    $('.error', form).html("Вы не зарегистрированы");
+                },
+                200: function () {
+                },
+                401: function () {
+                    $('.error', form).html("Выберите размер");
+                },
+                403: function () {
+                    $('.error', form).html("Ошибка добавления корзины");
+                }
+            }
+        });
+        return false;
+    });
+</script>
+<%}%>

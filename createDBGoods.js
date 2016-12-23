@@ -8,8 +8,10 @@ async.series([
     createGoods,
     requireModelsUser,
     createUsers,
-    requireModelsCart/*,
+    requireModelsCart,/*,
     createCart*/
+    requireModelsOrder/*,
+     createOrder*/
 ], function(err) {
     console.log(arguments);
     mongoose.disconnect();
@@ -49,6 +51,13 @@ function requireModelsCart(callback) {
     }, callback);
 }
 
+function requireModelsOrder(callback) {
+    require('model/order');
+
+    async.each(Object.keys(mongoose.models), function(modelName, callback) {
+        mongoose.models[modelName].ensureIndexes(callback);
+    }, callback);
+}
 function createGoods(callback) {
 
     var goods = [
@@ -158,5 +167,18 @@ function createCart(callback) {
     async.each(carts, function(userData, callback) {
         var cart = new mongoose.models.Cart(userData);
         cart.save(callback);
+    }, callback);
+}
+function createOrder(callback) {
+    var carts = [
+        {userID: '585bca9869b0f01478ae5fde',goodID: '585bca9769b0f01478ae5fb7', size: '52', count: '1'}
+    ];
+    var orders = [
+        { cart: carts}
+    ];
+
+    async.each(orders, function(userData, callback) {
+        var order = new mongoose.models.Order(userData);
+        order.save(callback);
     }, callback);
 }

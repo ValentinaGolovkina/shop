@@ -25,21 +25,20 @@ var schemaCart = new Schema({
     }
 });
 
-schemaCart.statics.addCart = function(userID, goodID, size, count, callback) {
-    console.log("add Cart");
+schemaCart.statics.addCart = function(userID, goodID, size, callback) {
     var Cart = this;
-    console.log("cart.this");
     async.waterfall([
         function(callback) {
-            console.log("1-я ф-я");
             Cart.findOne({userID: userID, goodID:goodID,size:size}, callback);
-
         },
         function(cart, callback) {
-            console.log("2-я ф-я");
             if (cart) {
-                //callback(new AuthError("Такой email уже зарегистрирован"));
-                console.log("Увеличили количество товара");
+                cart.count=cart.get('count')+1;
+                cart.save(function(err) {
+                    if (err) return callback(err);
+                    callback(null, cart);
+                });
+                console.log("Увеличили количество товара:", cart.get('count'));
             }else {
                 var cartt = new Cart({userID: userID,goodID: goodID,size: size, count: '1'});
                 cartt.save(function(err) {
@@ -50,8 +49,5 @@ schemaCart.statics.addCart = function(userID, goodID, size, count, callback) {
         }
     ], callback);
 };
-
-
-
 
 exports.Cart = mongoose.model('Cart', schemaCart);

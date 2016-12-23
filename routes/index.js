@@ -6,9 +6,9 @@ module.exports = function(app) {
   app.get('/children', require('./children').get);
 
   app.get('/description', require('./description').get);
-  //app.post('/description', require('./description').post);
-
   app.get('/cart', require('./cart').get);
+  app.get('/order', require('./order').get);
+
 
   app.get('/error', require('./error').get);
 

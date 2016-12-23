@@ -7,27 +7,52 @@
             <ul class="thumbnails list-unstyled">
                 <% if (count==0) {%>
                 <h4>Товаров в корзине нет</h4>
-                <%} else while (count>0) {%>
-                <%-partial('./partials/goodCart',{good:goods[goods.length-count], count:count})%>
+                <%} else { while (count>0) {%>
+                <%-partial('./partials/goodCart',{good:goods[goods.length-count], count:counts[goods.length-count]})%>
                 <% count = count-1; }%>
             </ul>
         </div>
         <div class="row">
             <div class="col-md-6"></div>
-            <div class="col-md-3">
-                <span>Итого:</span>
+            <div class="col-md-3 summa">
+                 Общая сумма:
                 <%var sum=0;%>
                 <%var i = 0;%>
                 <%while (i<goods.length){%>
-                <%sum=sum+goods[i].get('price'); i++;}%>
+                <%sum=sum+goods[i].get('price')*counts[i]; i++;}%>
                 <%=sum%>
+                p.
             </div>
             <div class="col-md-3">
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Заказать</button>
-                    <span class="help-block error"></span>
-                </div>
+                <form name="order">
+                    <input type="hidden" name="userID" value=<%=user.get('_id')%>>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Заказать</button>
+                        <span class="help-block error"></span>
+                    </div>
+                </form>
             </div>
         </div>
+        <%}%>
     </div>
 </div>
+<script>
+    $(document.forms['order']).on('submit', function () {
+        var form = $(this);
+        $.ajax({
+            url: "/order",
+            method: "GET",
+            data: form.serialize(),
+            complete: function () {
+                $(":submit", data).button("reset");
+            },
+            statusCode: {
+                200: function () {
+                    alert("Ваш заказ принят. С вами свяжутся по электроной почте");
+                    window.location.href = "/cart?userID=<%-user.get('_id')%>";
+                }
+            }
+        });
+        return false;
+    });
+</script>

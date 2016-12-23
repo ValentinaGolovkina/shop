@@ -94,11 +94,8 @@ h3{
 }
 .panel-default{
   margin-top: 30px;
-  text-align: left;
 }
-.panel-default span {
-  color: #0f0f0f;
-}
+
 .cost{
   text-align: right;
   font-weight: bold;    /*задаёт текст жирным*/
@@ -185,4 +182,19 @@ margin-top: 28px;
 }
 .row.thumbnail img{
   height: 140px;
+}
+
+.cartCentrBtn{
+  margin-top: 45px;
+}
+.cartCentr{
+  margin-top: 55px;
+}
+.cartCentrDesc{
+  margin-top: 15px;
+}
+.summa{
+  margin-top: 20px;
+  color: #0f0f0f;
+  font-size: x-large;
 }

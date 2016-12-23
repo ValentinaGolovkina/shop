@@ -16,23 +16,7 @@
                     <a href="children?category=Майки"> <button class="btn categors">Майки</button> </a>
                 </div>
             </div>
-            <div class="col-xs-8 col-sm-9 col-md-10">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <!--span>Фильтры:</span-->
-                        <span>Сортировать по:</span>
-                        <div class="btn-group">
-                            <form>
-                                <select id="categories" class="selectpicker">
-                                    <option value="news">Новинки</option>
-                                    <option value="costUp">Цена по возрастанию</option>
-                                    <option value="costDown">Цена по убыванию</option>
-                                </select>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
+            <div class="col-xs-8 col-sm-9 col-md-10 panel-default">
                 <ul class="thumbnails list-unstyled">
                     <% if (count==0) {%>
                     <h4>Товаров не найдено</h4>
@@ -40,7 +24,6 @@
                     <%-partial('./partials/rowMiniature',{goods:goods, count:count})%>
                     <% count = count-4; }%>
                 </ul>
-                <!-- <%-partial('./partials/pagination',{count:count})%>-->
             </div>
         </div>
     </div>
