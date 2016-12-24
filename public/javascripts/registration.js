@@ -13,14 +13,11 @@ $(document.forms['registration-form']).on('submit', function() {
         },
         statusCode: {
             200: function() {
-                // form.html("Вы успешно зарегистрированы").addClass('alert-success');
                 alert("Вы успешно зарегистрированы");
                  window.location.href = "/login";
             },
             401: function() {
-                /*$('.error', form).html("Ошибка регистрации: такой email уже зарегистрирован");*/
-               $('.error', form).html("Ошибка регистрации");
-                //  window.location.href = "/login";
+               $('.error', form).html("Ошибка регистрации: такой email уже зарегистрирован");
             }
         }
     });

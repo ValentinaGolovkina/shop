@@ -1,6 +1,7 @@
 /**
  * Created by Валентина on 06.11.2016.
  */
+var HttpError = require('../error').HttpError;
 var crypto = require('crypto');
 var async = require('async');
 var util = require('util');
@@ -11,28 +12,28 @@ var mongoose = require('libs/mongoose'),
 var schema = new Schema({
     email: {
         type: String,
-        unique: true,
-        required: true
+            unique: true,
+            required: true
     },
     username: {
         type: String,
-        required: true
+            required: true
     },
     surname: {
         type: String,
-        required: true
+            required: true
     },
     hashedPassword: {
         type: String,
-        required: true
+            required: true
     },
     salt: {
         type: String,
-        required: true
+            required: true
     },
     created: {
         type: Date,
-        default: Date.now
+    default: Date.now
     }
 });
 
@@ -65,47 +66,13 @@ schema.statics.authorize = function(email, password, callback) {
                 if (user.checkPassword(password)) {
                     callback(null, user);
                 } else {
-                    callback(new AuthError("Пароль неверен"));
+                    callback(new HttpError(401,"Пароль неверен"));
                 }
             }else {
-               callback(new AuthError("Пользователь не найден"));
-            }
-        }
-    ], callback);
-};
-
-schema.statics.registr = function(email, username, surname, password, callback) {
-    var User = this;
-    async.waterfall([
-        function(callback) {
-            User.findOne({email: email}, callback);
-        },
-        function(user, callback) {
-            if (user) {
-                    callback(new AuthError("Такой email уже зарегистрирован"));
-            }else {
-                var user = new User({email: email,username: username,surname: surname, password: password});
-                 user.save(function(err) {
-                 if (err) return callback(err);
-                 callback(null, user);
-                 });
+               callback(new HttpError(500,"Пользователь не найден"));
             }
         }
     ], callback);
 };
 
 exports.User = mongoose.model('User', schema);
-
-
-function AuthError(message) {
-    Error.apply(this, arguments);
-    Error.captureStackTrace(this, AuthError);
-
-    this.message = message;
-}
-
-util.inherits(AuthError, Error);
-
-AuthError.prototype.name = 'AuthError';
-
-exports.AuthError = AuthError;

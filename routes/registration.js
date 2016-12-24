@@ -1,26 +1,33 @@
 /**
  * Created by Валентина on 17.11.2016.
  */
-var User = require('model/user').User;
 exports.get = function(req, res) {
     res.render('registration');
 };
 
+var async = require('async');
+var User = require('model/user').User;
+var HttpError = require('../error').HttpError;
 exports.post = function(req, res, next) {
     var email = req.body.email;
     var username = req.body.username;
     var surname = req.body.surname;
     var password = req.body.password;
 
-    User.registr(email, username, surname, password, function(err, user) {
-        if (err) {
-            console.log("ошибка регистрации");
-            res.status(401);
-            res.end();
+    async.waterfall([
+        function(callback) {
+            User.findOne({email: email}, callback);
+        },
+        function(user, callback) {
+            if (user) {
+                next (new HttpError(401,"Такой email уже зарегистрирован"));
+            }else {
+                user = new User({email: email,username: username,surname: surname, password: password});
+                user.save(function(err) {
+                    if (err) return callback(err);
+                    res.end();
+                });
+            }
         }
-        else {
-            console.log("успешная регистрация");
-            res.end();
-        }
-    });
+    ], next);
 };

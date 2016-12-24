@@ -24,8 +24,11 @@ var schemaOrder = new Schema({
                 }
             ],
         required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
 });
-
 
 exports.Order = mongoose.model('Order', schemaOrder);

@@ -1,7 +1,6 @@
 <% layout('./layout/page') -%>
-<% block('title', message) -%>
-<!--<% block('title', error.message) -%>-->
+<% block('title', error.message) %>
 <div class="container containerCategor">
     <p style="color: white">Извините, произошла ошибка.</p>
-    <p style="color: white"><%=message%></p>
+    <p style="color: white"><%=error.message%></p>
 </div>
