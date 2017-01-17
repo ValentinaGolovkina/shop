@@ -3,7 +3,7 @@ var Cart = require('model/cart').Cart;
 var HttpError = require('../error').HttpError;
 
 exports.get = function(req, res,next) {
-    var userID = req.query.userID;
+    var userID = req.session.user;
     Cart.find({userID:userID},function (err, carts){
         if (err) { next(new HttpError(500,"Ошибка поиска заказа для пользователя")); }
         else {

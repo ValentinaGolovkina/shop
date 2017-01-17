@@ -6,7 +6,7 @@ exports.get = function(req, res) {
 };
 
 var User = require('model/user').User;
-var HttpError = require('../error').HttpError;
+var HttpError = require('../../error/index').HttpError;
 exports.post = function(req, res, next) {
     var email = req.body.email;
     var password = req.body.password;

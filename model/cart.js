@@ -14,6 +14,22 @@ var schemaCart = new Schema({
         type: String,
         required: true
     },
+    goodname: {
+        type: String,
+        required: true
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    price: {
+        type: Number,
+        required: true
+    },
+    img: {
+        type:  String,
+        required: true
+    },
     size: {
         type: Number,
         required: true
@@ -21,6 +37,10 @@ var schemaCart = new Schema({
     count: {
         type: Number,
         required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
 });
 

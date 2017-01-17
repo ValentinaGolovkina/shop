@@ -24,9 +24,10 @@
                 </label>
                 <%i++;}%>
                 <input type="hidden" name="goodID" value=<%=good.get('_id')%>>
-                <%if(user){%>
-                <input type="hidden" name="userID" value=<%=user.get('_id')%>>
-                <%}%>
+                <input type="hidden" name="goodname" value=<%=good.get('goodname')%>>
+                <input type="hidden" name="category" value=<%=good.get('category')%>>
+                <input type="hidden" name="price" value=<%=good.get('price')%>>
+                <input type="hidden" name="img" value=<%=good.get('img')%>>
                 <div class="form-group">
                     <button id="button" type="submit" class="btn btn-primary" data-loading-text="Отправляю...">Добавить в корзину</button>
                     <span class="help-block error"></span>
@@ -36,12 +37,11 @@
     </div>
 </div>
 
-<%if(user){%>
 <script>
     $(document.forms['description']).on('submit', function () {
         var form = $(this);
         $.ajax({
-            url: "/description",
+            url: "/cart/addGood",
             method: "GET",
             data: form.serialize(),
             complete: function () {
@@ -53,7 +53,7 @@
                 },
                 200: function () {
                     if (confirm("Товар добавлен в корзину. Перейти в корзину?")) {
-                        window.location.href = "/cart?userID=<%-user.get('_id')%>";
+                        window.location.href = "/cart";
                         }
                 },
                 401: function () {
@@ -67,32 +67,3 @@
         return false;
     });
 </script>
-<%} else{%>
-<script>
-    $(document.forms['description']).on('submit', function () {
-        var form = $(this);
-        $.ajax({
-            url: "/description",
-            method: "GET",
-            data: form.serialize(),
-            complete: function () {
-                $(":submit", data).button("reset");
-            },
-            statusCode: {
-                402: function () {
-                    $('.error', form).html("Вы не зарегистрированы");
-                },
-                200: function () {
-                },
-                401: function () {
-                    $('.error', form).html("Выберите размер");
-                },
-                403: function () {
-                    $('.error', form).html("Ошибка добавления корзины");
-                }
-            }
-        });
-        return false;
-    });
-</script>
-<%}%>

@@ -8,19 +8,19 @@
         <div class="col-md-3 cartCentrDesc">
             <p id="name"><%=good.get('goodname')%></p>
             <p id="categor">Категория: <%=good.get('category')%></p>
-            <p id="size">Размер: <%=good.get('size')[0]%></p>
+            <p id="size">Размер: <%=good.get('size')%></p>
         </div>
         <div class="col-md-2 cartCentr">
             <p id="cost">Цена: <%=good.get('price')%> p.</p>
         </div>
         <div class="col-md-2 cartCentr">
-            <p id="count">Количество: <%=count%> шт.</p>
+            <p id="count">Количество: <%=good.get('count')%> шт.</p>
         </div>
         <div class="col-md-2 cartCentr">
-            <p id="costI">Итого: <%=good.get('price')*count%> p.</p>
+            <p id="costI">Итого: <%=good.get('price')*good.get('count')%> p.</p>
         </div>
         <div class="col-md-2 cartCentrBtn">
-            <a href="cart?userID=<%=user.get('_id')%>&goodID=<%=good.get('_id')%>&size=<%=good.get('size')%>">
+            <a href="cart/deleteGood?goodID=<%=good.get('goodID')%>&size=<%=good.get('size')%>">
                 <button class="btn categors">Удалить</button>
             </a>
         </div>
